@@ -7,6 +7,7 @@
   <title>Weather in 3erHof</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Trebuchet+MS&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
@@ -23,10 +24,13 @@
     <div class="forecast-box" id="weekly">
       <p>Loading weekly forecast...</p>
     </div>
+    <div class="forecast-box">
+      <canvas id="weeklyChart"></canvas>
+    </div>
   </main>
 
   <footer>
-    Website for the residents of 3erHof — Data provided by OpenWeatherMap
+    Community website for the residents of 3erHof — Data provided by OpenWeatherMap
   </footer>
 
   <script src="script.js"></script>
