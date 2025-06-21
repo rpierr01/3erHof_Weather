@@ -1,0 +1,68 @@
+/* style.css */
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(to bottom, #aee6ff, #e0f7ff);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  color: #003344;
+}
+
+header {
+  background-color: rgba(0, 119, 190, 0.85);
+  color: white;
+  padding: 1em 2em;
+  text-align: center;
+  width: 100%;
+  backdrop-filter: blur(3px);
+}
+
+main {
+  padding: 2em;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.weather-box {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  padding: 2em;
+  max-width: 400px;
+  margin: auto;
+  width: 90%;
+  backdrop-filter: blur(2px);
+}
+
+.weather-box h2 {
+  margin-top: 0;
+  font-size: 1.6em;
+  color: #005577;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  text-align: center;
+  font-size: 0.9em;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.4em;
+  }
+  .weather-box {
+    padding: 1.2em;
+  }
+  main {
+    padding: 1em;
+  }
+}
