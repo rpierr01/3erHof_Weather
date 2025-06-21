@@ -28,18 +28,18 @@ main {
   box-sizing: border-box;
 }
 
-.weather-box {
+.weather-box, .forecast-box {
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
   padding: 2em;
-  max-width: 400px;
-  margin: auto;
+  max-width: 500px;
+  margin: 1em auto;
   width: 90%;
   backdrop-filter: blur(2px);
 }
 
-.weather-box h2 {
+.weather-box h2, .forecast-box h2 {
   margin-top: 0;
   font-size: 1.6em;
   color: #005577;
@@ -59,7 +59,7 @@ footer {
   header h1 {
     font-size: 1.4em;
   }
-  .weather-box {
+  .weather-box, .forecast-box {
     padding: 1.2em;
   }
   main {

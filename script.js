@@ -1,9 +1,12 @@
+// script.js
 const apiKey = '1b87aaccd7e27a2c762da2585997ff11';
 const lat = 48.2811;
 const lon = 14.2472;
-const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
 
-fetch(url)
+// Current weather
+const urlCurrent = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+
+fetch(urlCurrent)
   .then(response => response.json())
   .then(data => {
     const temp = data.main.temp.toFixed(1);
@@ -22,4 +25,28 @@ fetch(url)
   .catch(error => {
     document.getElementById('weather').innerHTML = `<p>Unable to load weather data. Please check your internet connection or API key.</p>`;
     console.error('API error:', error);
+  });
+
+// Weather forecast (next 5 forecasts, every 3h)
+const urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+
+fetch(urlForecast)
+  .then(response => response.json())
+  .then(data => {
+    const forecasts = data.list.slice(0, 5).map(f => {
+      const date = new Date(f.dt * 1000);
+      const hours = date.getHours().toString().padStart(2, '0') + ':00';
+      const desc = f.weather[0].description;
+      const temp = f.main.temp.toFixed(1);
+      return `<p><strong>${hours}</strong> - ${desc}, ${temp} °C</p>`;
+    }).join('');
+
+    document.getElementById('forecast').innerHTML = `
+      <h2>Forecast</h2>
+      ${forecasts}
+    `;
+  })
+  .catch(error => {
+    document.getElementById('forecast').innerHTML = `<p>Unable to load forecast data.</p>`;
+    console.error('Forecast API error:', error);
   });
