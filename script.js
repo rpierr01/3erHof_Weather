@@ -27,7 +27,7 @@ fetch(urlCurrent)
     console.error('API error:', error);
   });
 
-// Weather forecast (next 5 forecasts, every 3h)
+// Short-term forecast
 const urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
 
 fetch(urlForecast)
@@ -42,11 +42,45 @@ fetch(urlForecast)
     }).join('');
 
     document.getElementById('forecast').innerHTML = `
-      <h2>Forecast</h2>
+      <h2>Short-term Forecast</h2>
       ${forecasts}
     `;
   })
   .catch(error => {
     document.getElementById('forecast').innerHTML = `<p>Unable to load forecast data.</p>`;
     console.error('Forecast API error:', error);
+  });
+
+// Weekly forecast with max temp and main weather condition
+fetch(urlForecast)
+  .then(response => response.json())
+  .then(data => {
+    const dailyMap = new Map();
+
+    data.list.forEach(f => {
+      const date = new Date(f.dt * 1000);
+      const day = date.toLocaleDateString('en-GB', { weekday: 'long' });
+      if (!dailyMap.has(day)) {
+        dailyMap.set(day, []);
+      }
+      dailyMap.get(day).push({
+        temp: f.main.temp,
+        condition: f.weather[0].description
+      });
+    });
+
+    const weeklyHTML = Array.from(dailyMap.entries()).slice(0, 5).map(([day, entries]) => {
+      const maxTemp = Math.max(...entries.map(e => e.temp)).toFixed(1);
+      const condition = entries[Math.floor(entries.length / 2)].condition;
+      return `<p><strong>${day}</strong> - Max: ${maxTemp} °C, ${condition}</p>`;
+    }).join('');
+
+    document.getElementById('weekly').innerHTML = `
+      <h2>Weekly Forecast</h2>
+      ${weeklyHTML}
+    `;
+  })
+  .catch(error => {
+    document.getElementById('weekly').innerHTML = `<p>Unable to load weekly forecast.</p>`;
+    console.error('Weekly forecast error:', error);
   });
